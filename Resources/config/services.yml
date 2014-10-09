@@ -1,0 +1,13 @@
+parameters:
+  hn_filter.class: Hn\FilterBundle\Service\FilterService
+  hn_filter.factory.class: Hn\FilterBundle\Factory\FilterMetaFactory
+
+services:
+  hn_filter:
+    class: %hn_filter.class%
+    arguments:
+      - @hn_filter.factory
+      - @hn_entity.entity
+
+  hn_filter.factory:
+    class: %hn_filter.factory.class%
