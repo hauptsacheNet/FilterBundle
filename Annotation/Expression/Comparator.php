@@ -15,7 +15,7 @@ use Hn\FilterBundle\Annotation\SimpleMetaAnnotation;
  * @Annotation
  * @Target("ANNOTATION")
  */
-final class Comperator extends MappedExpression implements SimpleMetaAnnotation
+final class Comparator extends MappedExpression implements SimpleMetaAnnotation
 {
     /**
      * @var string
