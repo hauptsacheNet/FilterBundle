@@ -10,12 +10,18 @@ namespace Hn\FilterBundle\Factory;
 
 
 use Hn\FilterBundle\Exception\FilterMappingNotFoundException;
+use Hn\FilterBundle\Loader\LazySchemaLoaderInterface;
 use Hn\FilterBundle\Meta\FilterClass;
 use Hn\FilterBundle\Meta\FilterDefinitionInterface;
 
 class FilterMetaFactory implements FilterMetaFactoryInterface, FilterMetaCollectionInterface
 {
     private $mapping = array();
+
+    /**
+     * @var LazySchemaLoaderInterface[]
+     */
+    private $loaders = array();
 
     /**
      * @param string $className
@@ -26,9 +32,16 @@ class FilterMetaFactory implements FilterMetaFactoryInterface, FilterMetaCollect
     {
         if (array_key_exists($className, $this->mapping)) {
             return $this->mapping[$className];
-        } else {
-            throw new FilterMappingNotFoundException($className);
         }
+
+        foreach ($this->loaders as $loader) {
+
+            if ($loader->hasClass($className)) {
+                return $this->mapping[$className] = $loader->loadClass($className);
+            }
+        }
+
+        throw new FilterMappingNotFoundException($className);
     }
 
     public function addMetaClass(FilterClass $filterClass)
@@ -39,5 +52,13 @@ class FilterMetaFactory implements FilterMetaFactoryInterface, FilterMetaCollect
     public function addMetaConfigurator(FilterDefinitionInterface $filterDefinition)
     {
         $filterDefinition->define($this);
+    }
+
+    /**
+     * @param LazySchemaLoaderInterface $lazySchemaLoader
+     */
+    public function addLazyLoader(LazySchemaLoaderInterface $lazySchemaLoader)
+    {
+        $this->loaders[spl_object_hash($lazySchemaLoader)] = $lazySchemaLoader;
     }
 } 

@@ -11,6 +11,10 @@ namespace Hn\FilterBundle\Meta;
 
 use Hn\FilterBundle\Factory\FilterMetaCollectionInterface;
 
+/**
+ * Interface FilterDefinitionInterface
+ * @package Hn\FilterBundle\Meta
+ */
 interface FilterDefinitionInterface
 {
     public function define(FilterMetaCollectionInterface $factory);

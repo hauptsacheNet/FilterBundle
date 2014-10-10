@@ -101,14 +101,8 @@ class FilterService implements FilterServiceInterface
                     break;
 
                 case FilterProperty::TYPE_COLLECTION:
-                    // FIXME the and/or expressions are a hack here
-                    if ($filterProperty->getExpression() instanceof Expression\AndX) {
-                        $expr = $qb->expr()->andX();
-                    } else if ($filterProperty->getExpression() instanceof Expression\OrX) {
-                        $expr = $qb->expr()->orX();
-                    } else {
-                        throw new \LogicException("The property '$filterProperty' requires a Composite Method (and, or)");
-                    }
+                    $expr = $qb->expr()->andX();
+
                     foreach($value as $entry) {
                         $expr->add($this->createExpression($entry, $qb));
                     }

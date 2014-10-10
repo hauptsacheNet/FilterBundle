@@ -13,9 +13,21 @@ use Hn\FilterBundle\Meta\Expression\Expression;
 
 class FilterProperty
 {
+    /**
+     * Simple compare operation of scalar values
+     */
     const TYPE_SCALAR = 1;
+    /**
+     * The containing value is another mapped filter object
+     */
     const TYPE_OBJECT = 2;
+    /**
+     * The containing value is an object from which the id should be used
+     */
     const TYPE_ID = 4;
+    /**
+     * The value is a collection on which all values have to match
+     */
     const TYPE_COLLECTION = 8;
 
     /**

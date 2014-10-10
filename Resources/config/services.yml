@@ -11,3 +11,9 @@ services:
 
   hn_filter.factory:
     class: %hn_filter.factory.class%
+
+  hn_filter.annotation_loader:
+      class: Hn\FilterBundle\Loader\AnnotationSchemaLoader
+      arguments: [@annotation_reader]
+      tags:
+          - { name: hn_filter.loader }
