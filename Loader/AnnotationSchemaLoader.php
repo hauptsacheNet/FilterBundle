@@ -76,7 +76,8 @@ class AnnotationSchemaLoader implements LazySchemaLoaderInterface
             }
 
             $expression = $this->convertAnnotation($filter->expression);
-            $filterProperty = new FilterProperty($property->getName(), $expression, $filter->type);
+            $type = constant('Hn\FilterBundle\Meta\FilterProperty::TYPE_' . $filter->type);
+            $filterProperty = new FilterProperty($property->getName(), $expression, $type);
             $filterProperties[] = $filterProperty;
         }
 

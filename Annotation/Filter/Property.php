@@ -24,8 +24,8 @@ final class Property implements Annotation
 
     /**
      * @var string
-     * @Enum({"SCALAR", "OBJECT", "ID", "COLLECTION"})
+     * @Enum({"SCALAR", "OBJECT", "ID", "COLLECTION_AND", "COLLECTION_OR"})
      * @see \Hn\FilterBundle\Meta\FilterProperty TYPE constants
      */
-    public $type = FilterProperty::TYPE_SCALAR;
+    public $type = "SCALAR";
 }
