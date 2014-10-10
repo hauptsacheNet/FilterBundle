@@ -20,6 +20,11 @@ final class Comparator extends MappedExpression implements SimpleMetaAnnotation
     /**
      * @var string
      */
+    public $mappedProperty;
+
+    /**
+     * @var string
+     */
     public $operator = \Hn\FilterBundle\Meta\Expression\Comparator::EQ;
 
     public function getConstructorArguments()
