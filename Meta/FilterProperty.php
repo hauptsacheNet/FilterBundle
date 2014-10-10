@@ -26,9 +26,18 @@ class FilterProperty
      */
     const TYPE_ID = 4;
     /**
-     * The value is a collection on which all values have to match
+     * The value is a collection on which ALL values have to match
+     * @deprecated use TYPE_COLLECTION_AND
      */
     const TYPE_COLLECTION = 8;
+    /**
+     * The value is a collection on which ALL values have to match
+     */
+    const TYPE_COLLECTION_AND = 8;
+    /**
+     * The value is a collection on which ONE values have to match
+     */
+    const TYPE_COLLECTION_OR = 16;
 
     /**
      * one of the TYPE_* constants

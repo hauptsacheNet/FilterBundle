@@ -100,8 +100,13 @@ class FilterService implements FilterServiceInterface
                     $andX->add($expr);
                     break;
 
-                case FilterProperty::TYPE_COLLECTION:
-                    $expr = $qb->expr()->andX();
+                case FilterProperty::TYPE_COLLECTION_AND:
+                case FilterProperty::TYPE_COLLECTION_OR:
+                    if ($filterProperty->getType() === FilterProperty::TYPE_COLLECTION_AND) {
+                        $expr = $qb->expr()->andX();
+                    } else {
+                        $expr = $qb->expr()->orX();
+                    }
 
                     foreach($value as $entry) {
                         $expr->add($this->createExpression($entry, $qb));
