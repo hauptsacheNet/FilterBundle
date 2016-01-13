@@ -9,6 +9,7 @@
 namespace Hn\FilterBundle\Meta\Expression;
 
 
+use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\QueryBuilder;
 
@@ -23,16 +24,12 @@ class OrHuman extends Composite
      */
     public function createExpression(QueryBuilder $qb, $value)
     {
-        $values = preg_split('/\s+/', $value);
+        $values = array_filter(preg_split('/\s+/', $value), 'strlen');
 
-        $expressions = array();
-        foreach ($values as $value) {
-            if (empty($value)) continue;
-            foreach ($this->createArray($qb, $value) as $expression) {
-                $expressions[] = $expression;
-            }
-        }
+        $expressions = array_map(function ($value) use($qb) {
+            return new Orx($this->createArray($qb, $value));
+        }, $values);
 
-        return new Orx($expressions);
+        return new Andx($expressions);
     }
 }
